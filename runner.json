@@ -1,0 +1,6 @@
+{
+	"name": "ngx",
+	"version": "latest",
+	"dependencies": {},
+	"commands": ["generate"]
+}
