@@ -1,0 +1,52 @@
+@import 'angular';
+:host {
+	flex-grow: 1;
+	display: flex;
+	flex-direction: column;
+	padding: 20px;
+}
+.table-user {
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+    &__img {
+        width: 30px;
+        height: 30px;
+        min-width: 30px;
+        min-height: 30px;
+        margin-right: 10px;
+        img {
+            width: 100%;
+            height: 100%;
+            border-radius: 50%;
+        }
+        @include bp-max(md) {
+            display: none;
+        }
+    }
+}
+
+.table {
+    @include bp-max(md) {
+        .email, .role {
+            display: none;
+        }
+    }
+    .checkbox {
+        height: 18px;
+        max-height: 18px;
+        display: block;
+        &__body {
+            padding: 2px;
+        }
+    }
+}
+
+.users-field {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+	@include bp-max(xs){
+		flex-direction: column;
+	}
+}
