@@ -5,7 +5,8 @@
         "start": "ng serve -o --proxy-config proxy.conf.json",
         "build": "ng build --configuration production",
         "lint": "eslint . --ext .ts",
-        "fix": "eslint . --ext .ts --fix"
+        "fix": "eslint . --ext .ts --fix",
+        "prepare": "husky install"
     },
     "private": true,
     "dependencies": {
@@ -18,10 +19,10 @@
         "@angular/platform-browser-dynamic": "~13.2.0",
         "@angular/router": "~13.2.0",
         "material-icons": "^1.10.6",
-        "socket.io-client": "^4.4.1",
-        "wacom": "^13.0.2",
         "rxjs": "~7.4.0",
+        "socket.io-client": "^4.4.1",
         "tslib": "^2.3.0",
+        "wacom": "^13.0.2",
         "zone.js": "~0.11.4"
     },
     "devDependencies": {
@@ -33,6 +34,8 @@
         "@typescript-eslint/eslint-plugin": "^5.10.1",
         "@typescript-eslint/parser": "^5.10.1",
         "eslint": "^8.7.0",
+        "husky": "^7.0.4",
+        "lint-staged": "^12.3.2",
         "typescript": "^4.4.4"
     }
 }
