@@ -1,23 +1,23 @@
 <div class="wrapper" id="wrapper">
-	<nav class="nav"(clickOutside)="navToggle=false">
-		<ul class="nav__ul container" [class._active]="navToggle">
+	<nav class="nav"(clickOutside)="show=false">
+		<ul class="nav__ul container" [class._active]="show">
 			<li class="nav__li">
-				<a class="nav__a" (click)="navToggle=false" routerLinkActive="_activeLink" [routerLinkActiveOptions]="{ exact: true }" routerLink="/profile">
+				<a class="nav__a" (click)="show=false" routerLinkActive="_activeLink" [routerLinkActiveOptions]="{ exact: true }" routerLink="/profile">
 					<span class="material-icons">home</span>
 				</a>
 			</li>
 			<li class="nav__li" *ngIf="us.user.is.admin">
-				<a class="nav__a" (click)="navToggle=false" routerLinkActive="_activeLink" [routerLinkActiveOptions]="{ exact: true }" routerLink="/admin/users">
+				<a class="nav__a" (click)="show=false" routerLinkActive="_activeLink" [routerLinkActiveOptions]="{ exact: true }" routerLink="/admin/users">
 					<span class="material-icons">people</span>
 				</a>
 			</li>
 			<li class="nav__li _burger">
-				<a class="nav__toggle" (click)="navToggle=!navToggle" [class._active]="navToggle">
+				<a class="nav__toggle" (click)="show=!show" [class._active]="show">
 					<span class="nav__toggle-line"></span>
 				</a>
 			</li>
 		</ul>
-		<div class="nav__burger" [class._active]="navToggle">
+		<div class="nav__burger" [class._active]="show">
 			<div class="nav__burger-list">
 				<a class="nav__burger-link nav__burger-user" routerLink="/profile">
 					<span class="material-icons">account_circle</span>

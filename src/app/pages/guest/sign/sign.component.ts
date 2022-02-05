@@ -10,7 +10,6 @@ import { UserService } from '@services';
 export class SignComponent {
 	constructor(private router: Router, private hash: HashService, private us: UserService,
 		private http: HttpService, private alert: AlertService) {
-
 		this.user.email = this.hash.get('email')||'ceo@webart.work';
 		this.user.password = this.hash.get('password')||'asdasdasdasd';
 	}
@@ -80,7 +79,7 @@ export class SignComponent {
 	}
 	public reseting = false;
 	reset(){
-		this.http.post('/api/user/request', this.user, (resp:any) => {
+		this.http.post('/api/user/request', this.user, () => {
 			this.reseting = true;
 		});
 		this.alert.info({

@@ -1,5 +1,4 @@
-import { CanActivate, ActivatedRouteSnapshot, 
-	RouterStateSnapshot, Router, Route } from '@angular/router';
+import { CanActivate, Router } from '@angular/router';
 import { Injectable } from '@angular/core';
 import { MongoService, FileService, HttpService } from 'wacom';
 
@@ -20,14 +19,14 @@ export class UserService {
 				id: 'userAvatarUrl',
 				resize: 256,
 				part: 'user',
-				cb: file=>{
+				cb: (file:any)=>{
 					if(typeof file != 'string') return;
 					this.user.avatarUrl = file;
 				}
 			});
 			this.mongo.config('user', {
 				replace: {
-					data: (data, cb, doc) => {
+					data: (data:any, cb:any) => {
 						if(typeof data != 'object') data = {};
 						cb(data);
 					},
@@ -36,20 +35,20 @@ export class UserService {
 			});
 			this.user = mongo.fetch('user', {
 				name: 'me'
-			}, user => {
+			}, (user:any) => {
 				if(localStorage.getItem('waw_user') && !user) this.logout();
 			});
-			this.users = mongo.get('user', (arr, obj)=>{
+			this.users = mongo.get('user', (arr:any, obj:any)=>{
 				this._users = obj;
 			});
 		}
 	/*
 	*	User Management
 	*/
-		create(user){
+		create(user:any){
 			this.mongo.create('user', user);
 		}
-		doc(userId){
+		doc(userId:string){
 			if(!this._users[userId]){
 				this._users[userId] = this.mongo.fetch('user', {
 					query: { _id: userId }
@@ -62,19 +61,19 @@ export class UserService {
 				this.mongo.update('user', this.user);
 			});
 		}
-		save(user){
+		save(user:any){
 			this.mongo.afterWhile(this, ()=>{
 				this.mongo.update('user', user, {
 					name: 'admin'
 				});
 			});
 		}
-		delete(user){
+		delete(user:any){
 			this.mongo.delete('user', user, {
 				name: 'admin'
 			});
 		}
-		change_password(oldPass, newPass){
+		change_password(oldPass: string, newPass: string){
 			this.http.post('/api/user/changePassword', {
 				newPass: newPass,
 				oldPass: oldPass
@@ -86,7 +85,7 @@ export class UserService {
 		logout(){
 			this.user = { data: {}, is: {} };
 			localStorage.removeItem('waw_user');
-			this.http.get('/api/user/logout', resp => {});
+			this.http.get('/api/user/logout');
 			this.router.navigate(['/']);
 		}
 	/*
@@ -98,8 +97,9 @@ export class UserService {
 export class Admins implements CanActivate {
 	constructor(private router: Router) {}
 	canActivate(){
-		if ( localStorage.getItem('waw_user') ) {
-			const user = JSON.parse(localStorage.getItem('waw_user'));
+		let user:any = localStorage.getItem('waw_user');
+		if ( user ) {
+			user = JSON.parse(user);
 			if(user.is && user.is.admin) return true;
 			this.router.navigate(['/profile']);
 			return false;
