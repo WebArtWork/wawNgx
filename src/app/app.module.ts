@@ -7,6 +7,7 @@ import { UserComponent } from './layout/user/user.component';
 import { Authenticated, Guest, Admins } from '@services';
 import { AppComponent } from './app.component';
 import { CoreModule } from '@core';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 // config
 import { WacomModule, MetaGuard } from 'wacom';
 const routes: Routes = [{
@@ -64,6 +65,7 @@ const routes: Routes = [{
 	imports: [
 		CoreModule,
 		BrowserModule,
+		BrowserAnimationsModule,
 		WacomModule.forRoot({
 			socket: false,
 			meta: {

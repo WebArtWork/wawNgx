@@ -1,21 +1,21 @@
-.checkbox {
+.w-checkbox {
     &__body {
         display: inline-flex;
         user-select: none;
-        color: $c-text;
+        color: var(--c-text-primary);
         cursor: pointer;
         padding: 6px 8px;
         border-radius: 6px;
         overflow: hidden;
-        transition: $transition;
+        transition: var(--transition);
         &:not(:last-child) {
             margin-right: 6px;
         }
         &:hover {
-            background: rgba($c-sky, 0.09);
+            background: rgba(var(--c-primary), 0.09);
         }
-        &:hover .checkbox__svg {
-            border-color: $c-sky;
+        &:hover .w-checkbox__svg {
+            border-color: var(--c-primary);
         }
         @include bp-max(md) {
             width: 100%;
@@ -25,12 +25,12 @@
     }
     &__input {
         display: none;
-        &:checked+.checkbox__body .checkbox__svg {
-            background: $c-sky;
-            border-color: $c-sky;
+        &:checked+.w-checkbox__body .w-checkbox__svg {
+            background: var(--c-primary);
+            border-color: var(--c-primary);
             animation: wave 0.4s ease;
         }
-        &:checked+.checkbox__body .checkbox__svg svg {
+        &:checked+.w-checkbox__body .w-checkbox__svg svg {
             stroke-dashoffset: 0;
         }
     }
@@ -41,9 +41,9 @@
         display: inline-block;
         border-radius: 4px;
         transform: scale(1);
-        border: 1px solid $c-border;
-        transition: $transition;
-        box-shadow: 0 1px 1px $c-shadow;
+        border: 1px solid var(--c-border);
+        transition: var(--transition);
+        box-shadow: 0 1px 1px var(--c-shadow);
     }
     &__svg svg {
         position: absolute;

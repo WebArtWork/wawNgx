@@ -1,4 +1,4 @@
-.radio {
+.w-radio {
     position: relative;
     display: flex;
     align-items: center;
@@ -16,7 +16,7 @@
         margin-right: 10px;
         width: 20px;
         height: 20px;
-        border: 2px solid $c-border;
+        border: 2px solid var(--c-border);
         border-radius: 100%;
         min-width: 20px;
         &:after {
@@ -27,17 +27,17 @@
             width: 10px;
             height: 10px;
             border-radius: 100%;
-            background: $c-sky;
+            background: var(--c-primary);
             transform: scale(0);
-            transition: $transition;
+            transition: var(--transition);
             opacity: 0.08;
             pointer-events: none;
         }
     }
     &__input {
         display: none;
-        &:checked+.radio__label {
-            border-color: $c-sky;
+        &:checked+.w-radio__label {
+            border-color: var(--c-primary);
             &:after {
                 transform: scale(1);
                 transition: all 0.2s cubic-bezier(0.35, 0.9, 0.4, 0.9);
