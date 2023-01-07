@@ -2,72 +2,100 @@ import { RouterModule, Routes, PreloadAllModules } from '@angular/router';
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 // Core
-import { GuestComponent } from './layout/guest/guest.component';
-import { UserComponent } from './layout/user/user.component';
-import { Authenticated, Guest, Admins } from '@services';
+import { GuestComponent } from './core/theme/guest/guest.component';
+import { UserComponent } from './core/theme/user/user.component';
+import { AuthenticatedGuard, GuestGuard, AdminsGuard } from 'src/app/core';
 import { AppComponent } from './app.component';
-import { CoreModule } from '@core';
+import { CoreModule } from 'src/app/core';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 // config
 import { WacomModule, MetaGuard } from 'wacom';
-const routes: Routes = [{
-	path: '',
-	canActivate: [Guest],
-	component: GuestComponent,
-	children: [/* guest */{
+import { environment } from 'src/environments/environment';
+
+const routes: Routes = [
+	{
 		path: '',
-		canActivate: [MetaGuard],
-		data: {
-			meta: {
-				title: 'Sign'
+		redirectTo: '/sign',
+		pathMatch: 'full'
+	},
+	{
+		path: '',
+		canActivate: [GuestGuard],
+		component: GuestComponent,
+		children: [/* guest */
+			{
+				path: 'sign',
+				canActivate: [MetaGuard],
+				data: {
+					meta: {
+						title: 'Sign'
+					}
+				},
+				loadChildren: () =>
+					import('./pages/guest/sign/sign.module').then(
+						(m) => m.SignModule
+					)
 			}
-		},
-		loadChildren: () => import('./pages/guest/sign/sign.module').then(m => m.SignModule)
-	}]
-}, {
-	path: '',
-	canActivate: [Authenticated],
-	component: UserComponent,
-	children: [/* user */{
-		path: 'profile',
-		canActivate: [MetaGuard],
-		data: {
-			meta: {
-				title: 'My Profile'
+		]
+	},
+	{
+		path: '',
+		canActivate: [AuthenticatedGuard],
+		component: UserComponent,
+		children: [/* user */
+			{
+				path: 'profile',
+				canActivate: [MetaGuard],
+				data: {
+					meta: {
+						title: 'My Profile'
+					}
+				},
+				loadChildren: () =>
+					import('./pages/user/profile/profile.module').then(
+						(m) => m.ProfileModule
+					)
 			}
-		},
-		loadChildren: () => import('./pages/user/profile/profile.module').then(m => m.ProfileModule)
-	}]
-}, {
-	path: 'admin',
-	canActivate: [Admins],
-	component: UserComponent,
-	children: [/* admin */{
-		path: 'users',
-		canActivate: [MetaGuard],
-		data: {
-			meta: {
-				title: 'Users'
+		]
+	},
+	{
+		path: 'admin',
+		canActivate: [AdminsGuard],
+		component: UserComponent,
+		children: [/* admin */
+			{
+				path: 'users',
+				canActivate: [MetaGuard],
+				data: {
+					meta: {
+						title: 'Users'
+					}
+				},
+				loadChildren: () =>
+					import('./pages/admin/users/users.module').then(
+						(m) => m.UsersModule
+					)
 			}
-		},
-		loadChildren: () => import('./pages/admin/users/users.module').then(m => m.UsersModule)
-	}]
-}, {
-	path: '**', redirectTo: 'profile', pathMatch: 'full'
-}];
+		]
+	},
+	{
+		path: '**',
+		redirectTo: 'profile',
+		pathMatch: 'full'
+	}
+];
 
 @NgModule({
-	declarations: [
-		AppComponent,
-		GuestComponent,
-		UserComponent
-	],
+	declarations: [AppComponent, GuestComponent, UserComponent],
 	imports: [
 		CoreModule,
 		BrowserModule,
 		BrowserAnimationsModule,
 		WacomModule.forRoot({
-			socket: false,
+			http: {
+				url: environment.url
+			},
+			socket: environment.production,
 			meta: {
 				useTitleSuffix: true,
 				defaults: {
@@ -76,20 +104,17 @@ const routes: Routes = [{
 					'og:image': 'https://webart.work/api/user/cdn/waw-logo.png'
 				}
 			},
-			alert: {
-				alerts: { /* alerts */}
-			},
 			modal: {
-				modals: { /* modals */}
+				modals: {/* modals */
+				}
 			}
 		}),
 		RouterModule.forRoot(routes, {
 			scrollPositionRestoration: 'enabled',
-			preloadingStrategy: PreloadAllModules,
-			relativeLinkResolution: 'legacy'
+			preloadingStrategy: PreloadAllModules
 		})
 	],
-	providers: [Authenticated, Guest, Admins],
+	providers: [AuthenticatedGuard, GuestGuard, AdminsGuard],
 	bootstrap: [AppComponent]
 })
-export class AppModule { }
+export class AppModule {}

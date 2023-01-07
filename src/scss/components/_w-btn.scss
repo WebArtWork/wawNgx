@@ -33,6 +33,15 @@
             background: var(--c-error-hover);
         }
     }
+	&._link {
+		background: transparent;
+		color: var(--c-text-primary);
+		font-size: 14px;
+		font-weight: 400;
+		&:hover {
+			color: var(--c-text-secondary);
+		}
+	}
     &:disabled {
         background-color: var(--c-grey-dark);
         cursor: default;

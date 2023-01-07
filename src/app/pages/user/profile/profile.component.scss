@@ -4,14 +4,28 @@
     padding: 20px;
 }
 /*  PROFILE STYLE  */
+.container {
+    padding: unset;
+}
 .profile {
     &__header {
         @include text-default(0, 23px, 500, 20px, var(--c-text-primary));
         @include flexBox(flex, null, space-between, center, null);
         border-radius: var(--b-radius);
     }
+	&__footer {
+		margin-top: 20px;
+		@include flexBox(flex, null, space-between, center, wrap);
+		@include bp-max(sm) {
+			flex-direction: column;
+			align-items: center;
+			.profile__logout {
+				order: 2;
+				margin-top: 20px;
+			}
+		}
+	}
     &__logout {
-        margin-top: 20px;
         .w-btn {
             margin: 0;
             @include flexBox(flex, null, space-between, center, null);

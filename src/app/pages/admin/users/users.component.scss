@@ -4,7 +4,7 @@
     @include flexBox(flex, column, null, null, null);
     padding: 20px;
 }
-.table-user {
+.w-table-user {
     @include flexBox(flex, null, null, center, wrap);
     &__img {
         width: 30px;
@@ -45,9 +45,10 @@
     .w-btn {
         margin: 10px;
     }
-    .w-forms {
+    .forms {
         width: 100%;
     }
+    
     @include bp-max(xs) {
         flex-direction: column;
 		align-items: center;
@@ -63,7 +64,10 @@
     &:hover {
         color: var(--c-error);
     }
-}
+    & i + i {
+        margin-left: 15px;
+    }
+}   
 
 .users {
     &__header {

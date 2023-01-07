@@ -18,7 +18,7 @@
             border-right: 2px solid var(--c-border);
             border-bottom: 0.5px solid var(--c-border);
             font-size: var(--fs);
-            line-height: var(--fs) + 8px;
+            line-height: calc(var(--fs) + 8px);
             letter-spacing: var(--letter-spacing);
             color: var(--c-text-primary);
             text-overflow: ellipsis;
@@ -29,7 +29,7 @@
                 border-right: none;
             }
             @include bp-max(md) {
-                font-size: var(--fs) - 4px;
+                font-size: calc(var(--fs) - 4px);
             }
         }
         &__td {
@@ -39,13 +39,13 @@
             vertical-align: middle;
             border-right: 2px solid var(--c-border);
             border-bottom: 2px dashed var(--c-border);
-            font-size: var(--fs) - 2px;
-            line-height: var(--fs) + 8px;
+            font-size: calc(var(--fs) - 2px);
+            line-height: calc(var(--fs) + 8px);
             letter-spacing: var(--letter-spacing);
             color: var(--c-text-primary);
             word-break: break-word;
             @include bp-max(md) {
-                font-size: var(--fs) - 4px;
+                font-size: calc(var(--fs) - 4px);
             }
         }
     }
